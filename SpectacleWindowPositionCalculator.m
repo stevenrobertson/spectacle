@@ -41,9 +41,19 @@
     } else if (!MovingToThirdOfDisplay(action)) {
         windowRect.origin.y = visibleFrameOfScreen.origin.y;
     }
-    
+
     if ((action == SpectacleWindowActionLeftHalf) || (action == SpectacleWindowActionRightHalf)) {
-        windowRect.size.width = floor(visibleFrameOfScreen.size.width / 2.0f);
+        int kFudgeFactor = 8;
+        if (abs(windowRect.size.width - visibleFrameOfScreen.size.width / 2.0f) < kFudgeFactor) {
+            windowRect.size.width = floor(visibleFrameOfScreen.size.width * 2.0f / 3.0f);
+        } else if (abs(windowRect.size.width - floor(visibleFrameOfScreen.size.width * 2.0f / 3.0f)) < kFudgeFactor) {
+            windowRect.size.width = floor(visibleFrameOfScreen.size.width / 3.0f);
+        } else {
+            windowRect.size.width = floor(visibleFrameOfScreen.size.width / 2.0f);
+        }
+        if (action == SpectacleWindowActionRightHalf) {
+            windowRect.origin.x = visibleFrameOfScreen.size.width - windowRect.size.width;
+        }
         windowRect.size.height = visibleFrameOfScreen.size.height;
     } else if ((action == SpectacleWindowActionTopHalf) || (action == SpectacleWindowActionBottomHalf)) {
         windowRect.size.width = visibleFrameOfScreen.size.width;
