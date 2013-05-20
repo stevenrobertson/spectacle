@@ -52,7 +52,7 @@
             windowRect.size.width = floor(visibleFrameOfScreen.size.width / 2.0f);
         }
         if (action == SpectacleWindowActionRightHalf) {
-            windowRect.origin.x = visibleFrameOfScreen.size.width - windowRect.size.width;
+            windowRect.origin.x = visibleFrameOfScreen.origin.x + visibleFrameOfScreen.size.width - windowRect.size.width;
         }
         windowRect.size.height = visibleFrameOfScreen.size.height;
     } else if ((action == SpectacleWindowActionTopHalf) || (action == SpectacleWindowActionBottomHalf)) {
